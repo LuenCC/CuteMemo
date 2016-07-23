@@ -1,0 +1,46 @@
+
+.backgroundBlue {
+    background-color: #22aadd;
+}
+
+.boxShadowTransparent {
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 1px;
+    border-radius: 4px;
+}
+
+label.error {
+    color: #F00;
+    font-weight: bold;
+}
+
+input.error,
+select.error,
+textarea.error {
+    border: 1px red solid;
+}
+
+.allPagesHeader {
+    font-size: x-large;
+    font-weight: bolder;
+    color: green;
+    background-image: url("../images/headerBackgroundImage.jpg");
+    background-position: center;
+    background-clip: content-box;
+    background-origin: content-box;
+}
+
+.smallText {
+    font-size:small;
+}
+
+.greenText {
+    color: green;
+}
+
+.ui-header {
+    margin: 0px;
+}
+
+/*.comicFont {*/
+    /*'Margarine', cursive;*/
+/*}*/

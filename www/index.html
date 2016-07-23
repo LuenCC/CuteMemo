@@ -1,0 +1,649 @@
+<!--
+    Created by Jane
+                on 4/7/2016.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+
+        <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+        <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link href='https://fonts.googleapis.com/css?family=Margarine' rel='stylesheet' type='text/css'>
+
+        <script src="js/lib/jquery-2.1.4.js"></script>
+        <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+
+        <script src="js/geo.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnfvY5_QQq22oE5uGRjNkLO0qKu2FLdPY"
+                type="text/javascript"></script>
+
+        <script src="js/BLL.js"></script>
+        <script src="js/DAL.js"></script>
+        <script src="js/database.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/global.js"></script>
+        <title>Cute Memo</title>
+    </head>
+    <body>
+        <!--page1: Home page-->
+        <div id="HomePage" data-role="page" style="background-color: floralwhite; font-family: 'Margarine', cursive;">
+            <header class="allPagesHeader" data-role="header"
+                    data-theme="c" data-position="fixed">
+                <h1 style="font-family: 'Margarine', cursive;"> Cute Memo </h1>
+
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#HomePage" data-icon="home"
+                               data-theme="a"
+                               class="ui-btn-active ui-state-persist comicFont"
+                               data-transition="" data-rel="" style="font-family: 'Margarine', cursive;">Home</a></li>
+                        <li><a href="#AddTodayHealthStatus"
+                               data-icon="plus" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Today</a></li>
+                        <li><a href="#ViewAllHealthRecords"
+                               data-icon="bullets" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Overview</a></li>
+                        <li><a href="#MoreFunctions"
+                               data-icon="grid" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Locations</a></li>
+                        <li><a href="#About"
+                               data-icon="info" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">About</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content" style="font-family: 'Margarine', cursive;">
+                <h2>Sleeping Time </h2>
+                <div id="divSleepingChart" class="clearDiv"></div>
+
+                <br>
+                <h2>Weight </h2>
+                <div id="divWeightChart" class="clearDiv"></div>
+
+                <br>
+                <h2>Diet </h2>
+                <p class="smallText">
+                    <span id="dinnerChartExplanationTextA"></span>
+                    <span id="dinnerChartExplanationTextB" class="greenText"></span>
+                </p>
+                <div id="divDinnerChart" class="clearDiv"></div>
+
+                <br>
+                <h2>Sports Time </h2>
+                <div id="divSportsChart" class="clearDiv"></div>
+
+                <br>
+                <fieldset>
+                    <input type="checkbox" id="chkOtherCharts"
+                           name="chkOtherCharts" value="" data-theme="a">
+                    <label for="chkOtherCharts"
+                           style="font-weight: bold; font-family: 'Margarine', cursive;">
+                        To view more private data ?
+                    </label>
+                </fieldset>
+                <div id="divOtherCharts" hidden="hidden">
+                    <h2>Period Color </h2>
+                    <div id="divPeriodColorChart" class="clearDiv"></div>
+
+                    <br>
+                    <h2>Period Status </h2>
+                    <div id="divPeriodStatusChart" class="clearDiv"></div>
+
+                    <br>
+                    <h2>Pee Status </h2>
+                    <div id="divPeeStatusChart" class="clearDiv"></div>
+
+                </div>
+
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1 class="footerInnerHTML"></h1>
+            </footer>
+        </div>
+
+
+        <!--page2: Add today's status-->
+        <div id="AddTodayHealthStatus" data-role="page" style="background-color: lavenderblush; font-family: 'Margarine', cursive;">
+            <header class="allPagesHeader" data-role="header"
+                    data-theme="c" data-position="fixed">
+                <h1 style="font-family: 'Margarine', cursive;"> Cute Memo </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#HomePage"
+                               data-icon="home" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Home</a></li>
+                        <li><a href="#AddTodayHealthStatus"
+                               data-icon="plus" data-theme="a"
+                               class="ui-btn-active ui-state-persist" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Today</a></li>
+                        <li><a href="#ViewAllHealthRecords"
+                               data-icon="bullets" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Overview</a></li>
+                        <li><a href="#MoreFunctions"
+                               data-icon="grid" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Locations</a></li>
+                        <li><a href="#About"
+                               data-icon="info" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">About</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content" style="align-content: center; font-family: 'Margarine', cursive;" >
+                <form id="frmAddStatusToday">
+                    <label for="txtDate">Date: (mm/dd/yyyy)</label>
+                    <input type="date" id="txtDate"
+                           name="txtDate" value="" class="required" style="font-family: 'Margarine', cursive;"
+                           data-theme="a"
+                           data-clear-btn="true" placeholder="">
+                    <br>
+                    <label for="cboSleepTime">Sleeping Time: (hours)</label>
+                    <select id="cboSleepTime" name="cboSleepTime" style="font-family: 'Margarine', cursive;">
+                    </select>
+
+                    <br>
+                    <label for="cboWeight">Weight: (kg)</label>
+                    <select id="cboWeight" name="cboWeight" style="font-family: 'Margarine', cursive;">
+                    </select>
+
+                    <br>
+                    <label for="cboDinner">Did you eat breakfast, lunch, dinner today ?</label>
+                    <select id="cboDinner" name="cboDinner">
+                        <option value="3" selected>All finished</option>
+                        <option value="2">Only ate lunch and dinner</option>
+                        <option value="2">Only ate breakfast and lunch</option>
+                        <option value="2">Only ate breakfast and dinner</option>
+                        <option value="1">Only ate dinner</option>
+                        <option value="1">Only ate lunch</option>
+                        <option value="1">Only ate breakfast</option>
+                    </select>
+
+                    <br>
+                    <label for="cboSportsTime">Sports Time: (hours)</label>
+                    <select id="cboSportsTime" name="cboSportsTime">
+                    </select>
+
+                    <br>
+                    <label for="rtxNotes">Notes: </label>
+                    <textarea id="rtxNotes" name="rtxNotes" style="font-family: 'Margarine', cursive;"
+                              placeholder="Notes, Events, Activities of Today"></textarea>
+                    <br>
+                    <fieldset>
+                        <input type="checkbox" id="chkOthers"
+                               name="chkOthers" value="" data-theme="a">
+                        <label for="chkOthers"
+                               style="font-weight: bold; font-family: 'Margarine', cursive;" >
+                            To record more private data ?
+                        </label>
+                    </fieldset>
+
+                    <br>
+                    <div id="divOther" hidden="hidden">
+                        <label for="cboPeriodColor">Period Color: </label>
+                        <select id="cboPeriodColor" name="cboPeriodColor">
+                            <option value="Dark red">Dark red</option>
+                            <option value="Red">Red</option>
+                            <option value="Light red">Light red</option>
+                            <option value="Brown">Brown</option>
+                            <option value="Light Yellow">Light Yellow</option>
+                            <option value="White">White</option>
+                            <option value="N/A" selected>N/A</option>
+                        </select>
+
+                        <br>
+                        <label for="cboPeriodMuchOrLittle">Much or Little ? </label>
+                        <select id="cboPeriodMuchOrLittle" name="cboPeriodMuchOrLittle">
+                            <option value="Much">Much</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Little">Little</option>
+                            <option value="Clean">Clean</option>
+                            <option value="N/A" selected>N/A</option>
+                        </select>
+
+                        <br>
+                        <label for="cboPee">Pee Color: </label>
+                        <select id="cboPee" name="cboPee">
+                            <option value="Light Yellow">Light Yellow</option>
+                            <option value="Yellow">Yellow</option>
+                            <option value="Dark Yellow">Dark Yellow</option>
+                            <option value="Other">Other</option>
+                            <option value="N/A" selected>N/A</option>
+                        </select>
+                    </div>
+
+
+                    <button type="button" id="btnSave"
+                            name="btnSave"
+                            data-iconpos="left"
+                            style="border: none; background-color: #3388cc; font-family: 'Margarine', cursive;"
+                            data-theme="b" data-inline="true" class="">Save
+                    </button>
+
+                </form>
+
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1 class="footerInnerHTML"></h1>
+            </footer>
+        </div>
+
+
+        <!--page3: List Page-->
+        <div id="ViewAllHealthRecords" data-role="page"  style="background-color: floralwhite; font-family: 'Margarine', cursive;">
+            <header class="allPagesHeader" data-role="header"
+                    data-theme="c" data-position="fixed">
+                <h1 style="font-family: 'Margarine', cursive;"> Cute Memo </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#HomePage" style="font-family: 'Margarine', cursive;"
+                               data-icon="home" data-theme="a" class=""
+                               data-transition="" data-rel="">Home</a></li>
+                        <li><a href="#AddTodayHealthStatus" style="font-family: 'Margarine', cursive;"
+                               data-icon="plus" data-theme="a" class=""
+                               data-transition="" data-rel="">Today</a></li>
+                        <li><a href="#ViewAllHealthRecords" style="font-family: 'Margarine', cursive;"
+                               data-icon="bullets" data-theme="a" style="font-family: 'Margarine', cursive;"
+                               class="ui-btn-active ui-state-persist"
+                               data-transition="" data-rel="">Overview</a></li>
+                        <li><a href="#MoreFunctions" style="font-family: 'Margarine', cursive;"
+                               data-icon="grid" data-theme="a" class=""
+                               data-transition="" data-rel="">Locations</a></li>
+                        <li><a href="#About" style="font-family: 'Margarine', cursive;"
+                               data-icon="info" data-theme="a" class=""
+                               data-transition="" data-rel="">About</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content" style="font-family: 'Margarine', cursive;">
+                <ul data-role="listview" style="font-family: 'Margarine', cursive;"
+                    class="ui-listview-inset" id="lvwRecorderDetailList">
+                </ul>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1 class="footerInnerHTML"></h1>
+            </footer>
+        </div>
+
+
+        <!--page4: Location page-->
+        <div id="MoreFunctions" data-role="page" style="background-color: floralwhite; font-family: 'Margarine', cursive;">
+            <header class="allPagesHeader" data-role="header" style="font-family: 'Margarine', cursive;"
+                    data-theme="c" data-position="fixed">
+                <h1> Cute Memo </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#HomePage" style="font-family: 'Margarine', cursive;"
+                               data-icon="home" data-theme="a" class=""
+                               data-transition="" data-rel="">Home</a></li>
+                        <li><a href="#AddTodayHealthStatus" style="font-family: 'Margarine', cursive;"
+                               data-icon="plus" data-theme="a" class=""
+                               data-transition="" data-rel="">Today</a></li>
+                        <li><a href="#ViewAllHealthRecords" style="font-family: 'Margarine', cursive;"
+                               data-icon="bullets" data-theme="a" class=""
+                               data-transition="" data-rel="">Overview</a></li>
+                        <li><a href="#MoreFunctions" style="font-family: 'Margarine', cursive;"
+                               data-icon="grid" data-theme="a"
+                               class="ui-btn-active ui-state-persist"
+                               data-transition="" data-rel="">Locations</a></li>
+                        <li><a href="#About" style="font-family: 'Margarine', cursive;"
+                               data-icon="info" data-theme="a" class=""
+                               data-transition="" data-rel="">About</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content" style="font-family: 'Margarine', cursive;">
+
+
+                <ul data-role="listview" data-theme="a">
+                    <li><a style="text-align: center; font-family: 'Margarine', cursive; background-color: #ffd700;" data-icon="location"
+                           class="ui-state-persist"
+                           data-iconpos="right"
+                           data-role="button" href="#map-page">
+                        Show Me Current Location</a></li>
+                </ul>
+
+                <h2>History Locations (Area)</h2>
+                <p style="font-size: smaller; color: #22aadd">
+                    (the persentage of each street/community you have ever been)
+                </p>
+                <div id="divMapChart"></div>
+                <br>
+
+                <h2>History Locations (No. & Street)</h2>
+                <p style="font-size: smaller; color: #ff748c">
+                    (the persentage of each place (more accurate) you have ever been)
+                </p>
+                <div id="divMapChartAccurate"></div>
+
+                <ul data-role="listview"
+                    class="ui-listview-inset" id="lvwHistoryLocation">
+                </ul>
+
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1 class="footerInnerHTML"></h1>
+            </footer>
+        </div>
+
+        <!--page5: About page-->
+        <div id="About" data-role="page" style="background-color: floralwhite;" >
+            <header class="allPagesHeader" data-role="header"
+                    data-theme="c" data-position="fixed">
+                <h1 style="font-family: 'Margarine', cursive;"> Cute Memo </h1>
+                <div data-role="navbar" data-iconpos="top" style="font-family: 'Margarine', cursive;">
+                    <ul>
+                        <li><a href="#HomePage" style="font-family: 'Margarine', cursive;"
+                               data-icon="home" data-theme="a" class=""
+                               data-transition="" data-rel="">Home</a></li>
+                        <li><a href="#AddTodayHealthStatus" style="font-family: 'Margarine', cursive;"
+                               data-icon="plus" data-theme="a" class=""
+                               data-transition="" data-rel="">Today</a></li>
+                        <li><a href="#ViewAllHealthRecords" style="font-family: 'Margarine', cursive;"
+                               data-icon="bullets" data-theme="a" class=""
+                               data-transition="" data-rel="">Overview</a></li>
+                        <li><a href="#MoreFunctions" style="font-family: 'Margarine', cursive;"
+                               data-icon="grid" data-theme="a"
+                               class=""
+                               data-transition="" data-rel="">Locations</a></li>
+                        <li><a href="#About" style="font-family: 'Margarine', cursive;"
+                               data-icon="info" data-theme="a"
+                               class="ui-btn-active ui-state-persist"
+                               data-transition="" data-rel="">About</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+
+                <div style="background-color: mistyrose;">
+                    <br><br><br><br><br>
+                    <h2>Developer Name: &nbsp;&nbsp;&nbsp;Zhenzhen Tang</h2><br>
+                    <p>Computer Programmer/Analyst (CPA), Conestoga College</p>
+                    <a href="tel:2269899559" data-role="button" data-iconpos="right"
+                       data-icon="phone">Call: 226-989-9559</a>
+                    <a href="mailto:ztang1253@conestogac.on.ca"
+                       data-role="button" data-iconpos="right"
+                       data-icon="mail">ztang1253@conestogac.on.ca</a>
+                    <br>
+                    <br><br><br>
+                </div>
+
+                <div style="background-color: pink;">
+                    <br><br><br><br><br>
+                    <p>College Website:</p>
+                    <a href="http://www.conestogac.on.ca/"
+                       data-role="button" data-icon="arrow-r" data-iconpos="right">Conestoga College</a>
+                    <br><br><br><br><br>
+                    <br><br>
+                </div>
+
+                <button type="button"
+                        id="btnClearDatabase" name="btnClearDatabase"
+                        style="border: none;" data-theme="b" data-icon="forbidden" data-iconpos="right">
+                    Reset Application (Clear All Data)
+                </button>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1 class="footerInnerHTML" style="font-family: 'Margarine', cursive;"></h1>
+            </footer>
+        </div>
+
+        <!--page6: map page-->
+        <div id="map-page" data-role="page" data-url="map-page" style="background-color: floralwhite; font-family: 'Margarine', cursive;">
+
+            <header class="allPagesHeader" data-role="header"
+                    data-theme="c" data-position="fixed">
+                <h1 style="font-family: 'Margarine', cursive;"> Cute Memo </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#HomePage" style="font-family: 'Margarine', cursive;"
+                               data-icon="home" data-theme="a" class=""
+                               data-transition="" data-rel="">Home</a></li>
+                        <li><a href="#AddTodayHealthStatus" style="font-family: 'Margarine', cursive;"
+                               data-icon="plus" data-theme="a" class=""
+                               data-transition="" data-rel="">Today</a></li>
+                        <li><a href="#ViewAllHealthRecords" style="font-family: 'Margarine', cursive;"
+                               data-icon="bullets" data-theme="a" class=""
+                               data-transition="" data-rel="">Overview</a></li>
+                        <li><a href="#MoreFunctions" style="font-family: 'Margarine', cursive;"
+                               data-icon="grid" data-theme="a"
+                               class="ui-btn-active ui-state-persist"
+                               data-transition="" data-rel="">Locations</a></li>
+                        <li><a href="#About" style="font-family: 'Margarine', cursive;"
+                               data-icon="info" data-theme="a" class=""
+                               data-transition="" data-rel="">About</a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <ul data-role="listview" data-theme="a" style="font-family: 'Margarine', cursive;">
+                <li><a style="text-align: center; font-family: 'Margarine', cursive; background-color: #ffd700;" data-icon="star"
+                       class="ui-state-persist" id="btnMapRecord"
+                       data-iconpos="right"
+                       data-role="button">
+                    Record Current Location</a></li>
+            </ul>
+
+
+            <fieldset data-role="controlgroup" data-type="horizontal">
+
+                <input type="radio" id="radRoad" name="radType" data-theme="a" data-iconpos="left" checked="checked">
+                <label for="radRoad" style="font-family: 'Margarine', cursive; font-size: small;">Road</label>
+
+                <input type="radio" id="radSatellite" name="radType" data-theme="a" data-iconpos="left">
+                <label for="radSatellite" style="font-family: 'Margarine', cursive; font-size: small;">Satellite</label>
+
+                <input type="radio" id="radHybrid" name="radType" data-theme="a" data-iconpos="left">
+                <label for="radHybrid" style="font-family: 'Margarine', cursive; font-size: small;">Hybrid</label>
+
+                <input type="radio" id="radTerrain" name="radType" data-theme="a" data-iconpos="left">
+                <label for="radTerrain" style="font-family: 'Margarine', cursive; font-size: small;">Terrain</label>
+
+                <a style="text-align: center; font-family: 'Margarine', cursive;background-color: #fffd00; font-size: small;" data-icon="back"
+                   class="ui-state-persist"
+                   data-iconpos="notext"
+                   data-role="button" href="#MoreFunctions">
+                    Back</a>
+
+            </fieldset>
+
+            <div id="map-canvas">
+                <!--map goes here-->
+            </div>
+        </div>
+
+        <!--page7: detail page-->
+        <div id="Detail" data-role="page" style="background-color: lavenderblush; font-family: 'Margarine', cursive;">
+            <header class="allPagesHeader" data-role="header"
+                    data-theme="c" data-position="fixed">
+                <h1 style="font-family: 'Margarine', cursive;"> Cute Memo </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#HomePage"
+                               data-icon="home" data-theme="a" class=""
+                               data-transition="" data-rel="">Home</a></li>
+                        <li><a href="#AddTodayHealthStatus"
+                               data-icon="plus" data-theme="a" class=""
+                               data-transition="" data-rel="">Today</a></li>
+                        <li><a href="#ViewAllHealthRecords"
+                               data-icon="bullets" data-theme="a"
+                               class="ui-btn-active ui-state-persist"
+                               data-transition="" data-rel="">Overview</a></li>
+                        <li><a href="#MoreFunctions"
+                               data-icon="grid" data-theme="a" class=""
+                               data-transition="" data-rel="">Locations</a></li>
+                        <li><a href="#About"
+                               data-icon="info" data-theme="a" class=""
+                               data-transition="" data-rel="">About</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content" style="font-family: 'Margarine', cursive;">
+
+                <fieldset>
+                    <div id="lvwDetail" style="font-family: 'Margarine', cursive;">
+
+                    </div>
+                </fieldset>
+                <br>
+
+                <div data-role="controlgroup" data-type="horizontal">
+                    <button type="button" id="btnUpdate"
+                            name="btnUpdate"
+                            style="border-color: #3388cc; background-color: #3388cc; font-family: 'Margarine', cursive;" data-theme="b">
+                        Update
+                    </button>
+                    <button type="button" id="btnDelete"
+                            name="btnDelete"
+                            style="border-color: #cccccc; background-color: #cccccc; font-family: 'Margarine', cursive;" data-theme="a">
+                        &nbsp;Delete&nbsp;
+                    </button>
+                    <button type="button" id="btnCancel"
+                            name="btnCancel"
+                            style="border-color: #ffff00; font-family: 'Margarine', cursive; background-color: #fffd00" data-theme="a">
+                        &nbsp;&nbsp;&nbsp;Back&nbsp;&nbsp;&nbsp;
+                    </button>
+                </div>
+
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1 class="footerInnerHTML"></h1>
+            </footer>
+        </div>
+
+        <!--page8: edit page-->
+        <div id="EditTodayHealthStatus" data-role="page" style="background-color: lavenderblush; font-family: 'Margarine', cursive;">
+            <header class="allPagesHeader" data-role="header"
+                    data-theme="c" data-position="fixed">
+                <h1 style="font-family: 'Margarine', cursive;"> Cute Memo </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#HomePage"
+                               data-icon="home" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Home</a></li>
+                        <li><a href="#AddTodayHealthStatus"
+                               data-icon="plus" data-theme="a"
+                               class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Today</a></li>
+                        <li><a href="#ViewAllHealthRecords"
+                               data-icon="bullets" data-theme="a" class="ui-btn-active ui-state-persist"
+                               style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Overview</a></li>
+                        <li><a href="#MoreFunctions"
+                               data-icon="grid" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">Locations</a></li>
+                        <li><a href="#About"
+                               data-icon="info" data-theme="a" class="" style="font-family: 'Margarine', cursive;"
+                               data-transition="" data-rel="">About</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content" style="align-content: center; font-family: 'Margarine', cursive;" >
+                <form id="frmEditStatusToday">
+                    <label for="txtEditDate">Date: (mm/dd/yyyy)</label>
+                    <input type="date" id="txtEditDate"
+                           name="txtEditDate" value="" class="required" style="font-family: 'Margarine', cursive;"
+                           data-theme="a"
+                           data-clear-btn="true" placeholder="">
+                    <br>
+                    <label for="cboEditSleepTime">Sleeping Time: (hours)</label>
+                    <select id="cboEditSleepTime" name="cboEditSleepTime" style="font-family: 'Margarine', cursive;">
+                    </select>
+
+                    <br>
+                    <label for="cboEditWeight">Weight: (kg)</label>
+                    <select id="cboEditWeight" name="cboEditWeight" style="font-family: 'Margarine', cursive;">
+                    </select>
+
+                    <br>
+                    <label for="cboEditDinner">Did you eat breakfast, lunch, dinner today ?</label>
+                    <select id="cboEditDinner" name="cboEditDinner">
+                        <option value="3" selected>All finished</option>
+                        <option value="2">Only ate lunch and dinner</option>
+                        <option value="2">Only ate breakfast and lunch</option>
+                        <option value="2">Only ate breakfast and dinner</option>
+                        <option value="1">Only ate dinner</option>
+                        <option value="1">Only ate lunch</option>
+                        <option value="1">Only ate breakfast</option>
+                    </select>
+
+                    <br>
+                    <label for="cboEditSportsTime">Sports Time: (hours)</label>
+                    <select id="cboEditSportsTime" name="cboEditSportsTime">
+                    </select>
+
+                    <br>
+                    <label for="rtxEditNotes">Notes: </label>
+                    <textarea id="rtxEditNotes" name="rtxEditNotes" style="font-family: 'Margarine', cursive;"
+                              placeholder="Notes, Events, Activities of Today"></textarea>
+                    <br>
+                    <fieldset>
+                        <input type="checkbox" id="chkEditOthers"
+                               name="chkEditOthers" value="" data-theme="a">
+                        <label for="chkEditOthers"
+                               style="font-weight: bold; font-family: 'Margarine', cursive;" >
+                            To record more private data ?
+                        </label>
+                    </fieldset>
+
+                    <br>
+                    <div id="divEditOther" hidden="hidden">
+                        <label for="cboEditPeriodColor">Period Color: </label>
+                        <select id="cboEditPeriodColor" name="cboEditPeriodColor">
+                            <option value="Dark red">Dark red</option>
+                            <option value="Red">Red</option>
+                            <option value="Light red">Light red</option>
+                            <option value="Brown">Brown</option>
+                            <option value="Light Yellow">Light Yellow</option>
+                            <option value="White">White</option>
+                            <option value="N/A" selected>N/A</option>
+                        </select>
+
+                        <br>
+                        <label for="cboEditPeriodMuchOrLittle">Much or Little ? </label>
+                        <select id="cboEditPeriodMuchOrLittle" name="cboEditPeriodMuchOrLittle">
+                            <option value="Much">Much</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Little">Little</option>
+                            <option value="Clean">Clean</option>
+                            <option value="N/A" selected>N/A</option>
+                        </select>
+
+                        <br>
+                        <label for="cboEditPee">Pee Color: </label>
+                        <select id="cboEditPee" name="cboEditPee">
+                            <option value="Light Yellow">Light Yellow</option>
+                            <option value="Yellow">Yellow</option>
+                            <option value="Dark Yellow">Dark Yellow</option>
+                            <option value="Other">Other</option>
+                            <option value="N/A" selected>N/A</option>
+                        </select>
+                    </div>
+
+
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <button type="button" id="btnEditSave"
+                                name="btnEditSave"
+                                style="border-color: #3388cc; background-color: #3388cc; font-family: 'Margarine', cursive;" data-theme="b">
+                            &nbsp;Save&nbsp;
+                        </button>
+                        <button type="button" id="btnEditCancel"
+                                name="btnEditCancel"
+                                style="border-color: #ffff00; font-family: 'Margarine', cursive; background-color: #fffd00" data-theme="a">
+                            &nbsp;Back&nbsp;
+                        </button>
+                    </div>
+
+                </form>
+
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1 class="footerInnerHTML"></h1>
+            </footer>
+        </div>
+
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
+</html>
